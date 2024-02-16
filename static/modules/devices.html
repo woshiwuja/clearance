@@ -1,0 +1,56 @@
+<div style="width: 100%">
+  <div style="width: 100%; padding-bottom: 60px">
+    <form style="width 100%; height: 100px;" hxpost="/device_name">
+      <fieldset>
+        <legend>Search</legend>
+        <label for="devicename">Device name</label>
+        <input type="text" name="name" id="name" />
+      </fieldset>
+    </form>
+  </div>
+  <div style="width: 60%">
+    <div
+      id="devices"
+      style="display: flex"
+      hx-get="/devices"
+      hx-trigger="every 60s"
+      hx-target="#app-container"
+    >
+      <table>
+        <th>ID</th>
+        <th>Device name</th>
+        <th>IP Address</th>
+        <th>Model</th>
+        <th>MAC Address</th>
+
+        {{range .}}
+        <tr>
+          <td>{{.ID}}</td>
+          <td>{{.Name}}</td>
+          <td>{{.IP_addr}}</td>
+          <td>{{.Model}}</td>
+          <td>{{.MAC_addr}}</td>
+        </tr>
+        {{end}}
+      </table>
+    </div>
+  </div>
+  <div style="width: 40%">
+    <form hx-post="/new_device" hx-swap="afterbegin">
+      <fieldset>
+        <legend>Please enter device information</legend>
+
+        <label for="firstname">Device name</label>
+        <input type="text" name="name" id="name" />
+        <label for="firstname"> IP address </label>
+        <input type="text" name="ip_addr" id="ip_addr" />
+        <label for="firstname">Model</label>
+        <input type="text" name="model" id="model" />
+        <label for="firstname">MAC address</label>
+        <input type="text" name="mac_addr" id="mac_addr" />
+
+        <input type="submit" value="Add" />
+      </fieldset>
+    </form>
+  </div>
+</div>

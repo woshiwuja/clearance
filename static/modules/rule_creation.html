@@ -1,0 +1,38 @@
+<form>
+  <fieldset>
+    <legend>Please enter rule information</legend>
+
+    <label for="firstname">Rule name</label>
+    <input type="text" name="rulename" id="rulename" />
+
+    <label for="collector">Log collector</label>
+    <option value="GNU/Linux">Please select</option>
+    {{.LogCollector}}
+    <label for="os">Operating System</label>
+    <select name="os" id="os">
+      <option value="GNU/Linux">GNU/Linux</option>
+      <option value="MacOS">MacOS</option>
+      <option value="Windows">Windows</option>
+      <option value="Other">Other</option>
+    </select>
+
+    <label style="display: inline-flex; width: 93.5%" for="comment"
+      >Regex </label
+    ><button
+      style="text-align: right"
+      hx-get="regex_form"
+      hx-swap="afterend"
+      hx-target="#regex_form"
+    >
+      <big><bold>+</bold></big>
+    </button>
+    <textarea
+      style="display: grid"
+      name="regex"
+      id="regex_form"
+      placeholder="([A-Z])\w+"
+    ></textarea>
+
+    <input type="submit" value="Send" />
+  </fieldset>
+</form>

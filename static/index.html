@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Clearance</title>
+    <script src="https://unpkg.com/htmx.org@1.9.5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/normalize.css@8.0.1/normalize.css"
+    />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <div class="contentwrap">
+      <div class="sidebar">
+        <ul>
+          <li>
+            <button hx-get="/rule_creation" hx-target="#app-container">
+              create rule
+            </button>
+          </li>
+          <li>
+            <button
+              hx-get="/dashboard"
+              hx-target="#app-container"
+              hx-swap="innerHTML"
+            >
+              dashboard
+            </button>
+          </li>
+          <li>
+            <button
+              hx-get="/devices"
+              hx-target="#app-container"
+              hx-swap="innerHTML"
+            >
+              devices
+            </button>
+          </li>
+        </ul>
+      </div>
+      <div class="app-container" id="app-container"></div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,13 @@
+go 1.22.0
+
+use ./libs/paths
+
+use ./libs/models
+
+use ./libs/db_conn
+
+use ./libs/queries
+
+use ./libs/parse_devices
+
+use ./server

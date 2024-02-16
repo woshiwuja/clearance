@@ -1,0 +1,7 @@
+title = "devices"
+
+#will explain how it works later ;P
+[[device.NETGEAR]]
+ip_addr = "10.1.1.1"
+model = "netgear 1.2"
+mac_addr = "123123"

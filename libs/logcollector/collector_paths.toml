@@ -1,0 +1,23 @@
+title = "collector paths for go-siem"
+
+#will explain how it works later ;P
+
+[log]
+name = "log"
+path = "/home/federico/install.log"
+[log.ip]
+ip_addr = "localhost"
+[log.date]
+date = "[0-9][0-9][0-9][0-9]:[0-9][0-9]:[0-9][0-9]"
+[log.start_time]
+start_time = "[0-9][0-9]:[0-9][0-9]:[0-9][0-9]"
+[log.username]
+username = "user[\\d]{1,}"
+[log.status]
+critical = "CRITICAL"
+high = "HIGH"
+medium = "MEDIUM"
+low = "LOW"
+info = "INFO"
+warning = "WARNING"
+alert = "ALERT"
