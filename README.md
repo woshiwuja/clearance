@@ -1,30 +1,31 @@
-# anarchy2036.xyz
-Personal home page
-Stack composta da: (backend -> frontend)
-http://anarchy2036.xyz
-- GO
-- NGINX
-- HTML,CSS,JS
-- HTMX
+# Clearance
 
-nella cartella static sono presenti i vari file di templating utilizzati.
+Open source siem built from scratch.
 
-per far partire il tutto:
+# Stack
+
+Stack is comprised of postgres, go and htmx, plus a bit of css.
+It will support every feature 
+
+
+# Why
+
+SIEMS are slow and terrible to use. We can fix that.
+
+# Installation
+
 ```
-git clone https://github.com/Woshiwuja/anarchy2036.xyz.git
-cd anarchy2036.xyz
+git clone https://github.com/Woshiwuja/clearance
+cd clearance
+go mod tidy
 cd server
-go run main.go
-```
-oppure
-```
 go build main.go
 ./main
 ```
-Requisiti:
-Go > 1.20
-Per problemi con versione rimuover go.mod
 
+# Current features/TODO
 
-Ultimo commit ripulisce la repo. 
-Si puo usare come base per nuova app. il sito verra spostato su un altra repo
+-[ ] Log Parse
+-[x] Add Devices
+-[x] Add new rule (unused but you can add them lol)
+-[x] Dashboarding (earlyyyyyyyyy)
