@@ -33,7 +33,7 @@
 <style>
   .apexcharts-tooltip {
     background: white;
-    color: green;
+    color: black;
   }
 </style>
 <script>

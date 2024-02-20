@@ -1,0 +1,56 @@
+<div style="width: 100%">
+  <div
+    id="search"
+    hx-get="devices"
+    hx-trigger="load"
+    hx-swap="afterend"
+    hx-target="#search"
+  >
+    <fieldset>
+      <legend>Search</legend>
+      <input
+        type="search"
+        style="width: 23%"
+        name="name"
+        placeholder="name"
+        hx-post="/device_name"
+        hx-trigger="input changed delay:500ms, search"
+        hx-swap="innerHTML"
+        hx-target="#devices"
+      />
+      <input
+        type="search"
+        style="width: 23%"
+        name="ip_addr"
+        placeholder="ip"
+        hx-post="/device_name"
+        hx-trigger="input changed delay:500ms, search"
+        hx-swap="innerHTML"
+        hx-target="#devices"
+      />
+      <input
+        type="search"
+        style="width: 23%"
+        name="model"
+        placeholder="model"
+        hx-post="/device_name"
+        hx-trigger="input changed delay:500ms, search"
+        hx-swap="innerHTML"
+        hx-target="#devices"
+      />
+      <input
+        type="search"
+        style="width: 23%"
+        name="mac_addr"
+        placeholder="mac"
+        hx-post="/device_name"
+        hx-trigger="input changed delay:500ms, search"
+        hx-swap="innerHTML"
+        hx-target="#devices"
+      />
+      <button style="margin-top: 10px" hx-get="/device_form">
+        <big>+</big>
+      </button>
+    </fieldset>
+  </div>
+</div>

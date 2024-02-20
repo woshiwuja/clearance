@@ -26,11 +26,14 @@ func main() {
 
 	http.Handle("/", http.FileServer(http.Dir("../static")))
 	http.HandleFunc("/rule_creation", paths.GetRuleCreator)
-	http.HandleFunc("/dashboard", paths.GetDashboard)
+	http.HandleFunc("/dashboard", paths.GetDashboard(db))
 	http.HandleFunc("/regex_form", paths.GetRegexForm)
+	http.HandleFunc("/device_form", paths.GetDeviceForm)
 	http.HandleFunc("/devices", paths.GetDevices(db))
-	http.HandleFunc("/devices_name", paths.GetDevicesByName(db))
+	http.HandleFunc("/device_name", paths.SearchDevices(db))
+	http.HandleFunc("/search", paths.GetSearch)
 	http.HandleFunc("/new_device", paths.PostNewDevice(db))
+	http.HandleFunc("/delete", paths.Delete)
 	fmt.Printf("server open on %s", SRV_PORT)
 
 	err_a := http.ListenAndServe(":8190", nil)
