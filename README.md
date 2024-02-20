@@ -12,6 +12,11 @@ It will support every feature
 
 SIEMS are slow and terrible to use. We can fix that.
 
+# Requirements
+
+Postgres DB
+GO v1.22 (previous versions might be ok too, idk, probably)
+
 # Installation
 
 ```
