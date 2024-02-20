@@ -25,7 +25,7 @@ go build main.go
 
 # Current features/TODO
 
--[ ] Log Parse
--[x] Add Devices
--[x] Add new rule (unused but you can add them lol)
--[x] Dashboarding (earlyyyyyyyyy)
+- [ ] Log Parse
+- [x] Add Devices
+- [x] Add new rule (unused but you can add them lol)
+- [x] Dashboarding (earlyyyyyyyyy)
