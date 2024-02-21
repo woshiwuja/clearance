@@ -8,6 +8,8 @@ use ./libs/db_conn
 
 use ./libs/queries
 
+use ./libs/sql
+
 use ./libs/parse_devices
 
 use ./server
