@@ -10,26 +10,20 @@ import (
 )
 
 const getDevices = `-- name: GetDevices :many
-SELECT name,model,ip_addr,mac_addr from devices LIMIT 100
+SELECT id, name, model, ip_addr, mac_addr from devices LIMIT 100
 `
 
-type GetDevicesRow struct {
-	Name    string
-	Model   string
-	IpAddr  string
-	MacAddr string
-}
-
-func (q *Queries) GetDevices(ctx context.Context) ([]GetDevicesRow, error) {
+func (q *Queries) GetDevices(ctx context.Context) ([]Device, error) {
 	rows, err := q.db.Query(ctx, getDevices)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
-	var items []GetDevicesRow
+	var items []Device
 	for rows.Next() {
-		var i GetDevicesRow
+		var i Device
 		if err := rows.Scan(
+			&i.ID,
 			&i.Name,
 			&i.Model,
 			&i.IpAddr,
@@ -48,9 +42,9 @@ func (q *Queries) GetDevices(ctx context.Context) ([]GetDevicesRow, error) {
 const searchDevices = `-- name: SearchDevices :many
 SELECT id, name, model, ip_addr, mac_addr from devices
 WHERE name ILIKE $1
-OR model ILIKE $2
-OR ip_addr ILIKE $3
-OR mac_addr ILIKE $4
+AND model ILIKE $2
+AND ip_addr ILIKE $3
+AND mac_addr ILIKE $4
 LIMIT 100
 `
 

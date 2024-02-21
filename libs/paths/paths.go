@@ -66,13 +66,10 @@ func GetDevices(DB *sql.Queries, ctx context.Context) http.HandlerFunc {
 }
 func SearchDevices(DB *sql.Queries, ctx context.Context) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		id := "id"
-		name := r.FormValue("name")
-		ip := r.FormValue("ip_addr")
-		model := r.FormValue("model")
+		name := "%" + r.FormValue("name") + "%"
+		ip := "%" + r.FormValue("ip_addr") + "%"
+		model := "%" + r.FormValue("model") + "%"
 		mac := "%" + r.FormValue("mac_addr") + "%"
-		var uuid [16]byte
-		copy(uuid[:], []byte(id))
 		search := sql.SearchDevicesParams{name, model, ip, mac}
 		Devices, err := DB.SearchDevices(ctx, search)
 		if err != nil {
@@ -89,7 +86,7 @@ func SearchDevices(DB *sql.Queries, ctx context.Context) http.HandlerFunc {
 		htmlTemplate := string(htmxFile)
 		template := template.Must(template.New("").Parse(htmlTemplate))
 		builder := &strings.Builder{}
-		template.Execute(builder, &Devices)
+		template.Execute(builder, Devices)
 		s := builder.String()
 		io.WriteString(w, s)
 	}
