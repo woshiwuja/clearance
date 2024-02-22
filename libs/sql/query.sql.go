@@ -9,6 +9,35 @@ import (
 	"context"
 )
 
+const addDevice = `-- name: AddDevice :one
+INSERT INTO devices (
+  id, name, model, ip_addr, mac_addr
+) VALUES (
+  $1,$2,$3,$4,$5
+) returning id
+`
+
+type AddDeviceParams struct {
+	ID      string
+	Name    string
+	Model   string
+	IpAddr  string
+	MacAddr string
+}
+
+func (q *Queries) AddDevice(ctx context.Context, arg AddDeviceParams) (string, error) {
+	row := q.db.QueryRow(ctx, addDevice,
+		arg.ID,
+		arg.Name,
+		arg.Model,
+		arg.IpAddr,
+		arg.MacAddr,
+	)
+	var id string
+	err := row.Scan(&id)
+	return id, err
+}
+
 const getDevices = `-- name: GetDevices :many
 SELECT id, name, model, ip_addr, mac_addr from devices LIMIT 100
 `
@@ -41,14 +70,17 @@ func (q *Queries) GetDevices(ctx context.Context) ([]Device, error) {
 
 const searchDevices = `-- name: SearchDevices :many
 SELECT id, name, model, ip_addr, mac_addr from devices
-WHERE name ILIKE $1
-AND model ILIKE $2
-AND ip_addr ILIKE $3
-AND mac_addr ILIKE $4
+WHERE id ILIKE $1
+AND name ILIKE $2
+AND model ILIKE $3
+AND ip_addr ILIKE $4
+AND mac_addr ILIKE $5
+ORDER BY name
 LIMIT 100
 `
 
 type SearchDevicesParams struct {
+	ID      string
 	Name    string
 	Model   string
 	IpAddr  string
@@ -57,6 +89,7 @@ type SearchDevicesParams struct {
 
 func (q *Queries) SearchDevices(ctx context.Context, arg SearchDevicesParams) ([]Device, error) {
 	rows, err := q.db.Query(ctx, searchDevices,
+		arg.ID,
 		arg.Name,
 		arg.Model,
 		arg.IpAddr,

@@ -1,12 +1,12 @@
 <div id="form">
-  <button id="close">X</button>
+  <button id="close_form">X</button>
   <form hx-post="/new_device" hx-swap="afterbegin">
     <fieldset>
       <legend>Please enter device information</legend>
 
       <label for="firstname">Device name</label>
       <input type="text" name="name" id="name" />
-      <label for="firstname"> IP address </label>
+      <label for="firstname">IP address</label>
       <input type="text" name="ip_addr" id="ip_addr" />
       <label for="firstname">Model</label>
       <input type="text" name="model" id="model" />
@@ -24,7 +24,7 @@
   // Get the button that opens the modal
 
   // Get the <span> element that closes the modal
-  var span = document.getElementById("close");
+  var span = document.getElementById("close_form");
 
   // When the user clicks the button, open the modal
 

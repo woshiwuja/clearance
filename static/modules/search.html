@@ -10,7 +10,18 @@
       <legend>Search</legend>
       <input
         type="search"
-        style="width: 23%"
+        style="width: 18%"
+        name="id"
+        placeholder="id"
+        hx-post="/device_name"
+        hx-trigger="input changed delay:500ms, search"
+        hx-swap="innerHTML"
+        hx-target="#devices"
+      />
+
+      <input
+        type="search"
+        style="width: 18%"
         name="name"
         placeholder="name"
         hx-post="/device_name"
@@ -20,7 +31,7 @@
       />
       <input
         type="search"
-        style="width: 23%"
+        style="width: 18%"
         name="ip_addr"
         placeholder="ip"
         hx-post="/device_name"
@@ -30,7 +41,7 @@
       />
       <input
         type="search"
-        style="width: 23%"
+        style="width: 18%"
         name="model"
         placeholder="model"
         hx-post="/device_name"
@@ -40,7 +51,7 @@
       />
       <input
         type="search"
-        style="width: 23%"
+        style="width: 18%"
         name="mac_addr"
         placeholder="mac"
         hx-post="/device_name"

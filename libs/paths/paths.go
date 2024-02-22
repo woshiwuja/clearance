@@ -3,6 +3,7 @@ package paths
 import (
 	"context"
 	"fmt"
+	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5/pgtype"
 	"html/template"
 	"io"
@@ -20,24 +21,22 @@ type Search struct {
 	e string
 }
 
-/*
-	func GetDashboard() http.HandlerFunc {
-		return func(w http.ResponseWriter, r *http.Request) {
-			var Devices []models.Device
-			Devices = queries.GetDevices(DB)
-			htmxFile, err := os.ReadFile("../static/modules/charts.html")
-			if err != nil {
-				fmt.Printf("error reading file %v", err)
-			}
-			htmlTemplate := string(htmxFile)
-			template := template.Must(template.New("hello").Parse(htmlTemplate))
-			builder := &strings.Builder{}
-			template.Execute(builder, Devices)
-			s := builder.String()
-			io.WriteString(w, s)
+func GetDashboard(DB *sql.Queries, ctx context.Context) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		Devices, err := DB.GetDevices(ctx)
+		htmxFile, err := os.ReadFile("../static/modules/charts.html")
+		if err != nil {
+			fmt.Printf("error reading file %v", err)
 		}
+		htmlTemplate := string(htmxFile)
+		template := template.Must(template.New("hello").Parse(htmlTemplate))
+		builder := &strings.Builder{}
+		template.Execute(builder, Devices)
+		s := builder.String()
+		io.WriteString(w, s)
 	}
-*/
+}
+
 func GetRegexForm(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("/GetDashboard request received\n")
 	htmxFile, err := os.ReadFile("../static/modules/forms/regex.html")
@@ -66,11 +65,12 @@ func GetDevices(DB *sql.Queries, ctx context.Context) http.HandlerFunc {
 }
 func SearchDevices(DB *sql.Queries, ctx context.Context) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		id := "%" + r.FormValue("id") + "%"
 		name := "%" + r.FormValue("name") + "%"
 		ip := "%" + r.FormValue("ip_addr") + "%"
 		model := "%" + r.FormValue("model") + "%"
 		mac := "%" + r.FormValue("mac_addr") + "%"
-		search := sql.SearchDevicesParams{name, model, ip, mac}
+		search := sql.SearchDevicesParams{id, name, model, ip, mac}
 		Devices, err := DB.SearchDevices(ctx, search)
 		if err != nil {
 			fmt.Println(err)
@@ -90,21 +90,28 @@ func SearchDevices(DB *sql.Queries, ctx context.Context) http.HandlerFunc {
 		s := builder.String()
 		io.WriteString(w, s)
 	}
-} /*
-func PostNewDevice(DB *gorm.DB) http.HandlerFunc {
+}
+
+func PostNewDevice(DB *sql.Queries, ctx context.Context) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		htmxFile, err := os.ReadFile("../static/modules/forms/device_added.html")
 		if err != nil {
 			fmt.Printf("error reading file %v", err)
 		}
-		device := models.Device{uuid.New().String(), pgtype.Text{"name"), r.FormValue("ip_addr"), r.FormValue("model"), r.FormValue("mac_addr")}
-		err_a := queries.CreateDevice(DB, device)
-		if err_a != nil {
+		Device := sql.AddDeviceParams{uuid.New().String(), r.FormValue("name"), r.FormValue("ip_addr"), r.FormValue("model"), r.FormValue("mac_addr")}
+		id, err := DB.AddDevice(ctx, Device)
+		if err != nil {
 			io.WriteString(w, "<div>error with query</div>")
 		}
-		io.WriteString(w, string(htmxFile))
+		fmt.Println("added id:", id)
+		htmlTemplate := string(htmxFile)
+		template := template.Must(template.New("").Parse(htmlTemplate))
+		builder := &strings.Builder{}
+		template.Execute(builder, id)
+		s := builder.String()
+		io.WriteString(w, s)
 	}
-}*/
+}
 func Delete(w http.ResponseWriter, r *http.Request) {
 	io.WriteString(w, "")
 }

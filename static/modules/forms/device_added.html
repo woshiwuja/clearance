@@ -6,22 +6,23 @@
     transform: translate(-50%, -50%);
   "
 >
-  <div id="myModal" class="modal">
+  <div id="DevModal" class="modal">
     <!-- Modal content -->
     <div style="border-color: grey" class="modal-content">
-      <span class="close">&times;</span>
-      <p>Device added.</p>
+      <span id="close_modal">&times;</span>
+      <p>Device added. ID: {{.ID}}</p>
     </div>
   </div>
 </div>
+
 <script>
   // Get the modal
-  var modal = document.getElementById("myModal");
+  var modal = document.getElementById("DevModal");
 
   // Get the button that opens the modal
 
   // Get the <span> element that closes the modal
-  var span = document.getElementsByClassName("close")[0];
+  var span = document.getElementById("close_modal");
 
   // When the user clicks on the button, open the modal
   // When the user clicks on <span> (x), close the modal
